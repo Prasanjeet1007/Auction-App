@@ -1,27 +1,26 @@
 import React from "react";
+import CarItem from "./CarItem";
+import {useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {getCar} from '../Reducers/carReducer'
+import './CartItem.css'
+function ForDealer() {
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(getCar())
+  }, [dispatch])
 
-function About() {
+  const {car}= useSelector(store=>store);
   return (
-    <div className="about">
-      <div class="container">
-        <div class="row align-items-center my-5">
-          <div class="col-lg-7">
-            <img
-              class="img-fluid rounded mb-4 mb-lg-0"
-              src="http://placehold.it/900x400"
-              alt=""
-            />
-          </div>
-          <div class="col-lg-5">
-            <h1 class="font-weight-light">About</h1>
-            <p>
-              Buy ur interested car
-            </p>
-          </div>
-        </div>
+    <React.Fragment>
+      <div className="carList">
+       {car.map((item)=>{
+          return <CarItem item={item} key={item.id}/>
+       })}
       </div>
-    </div>
+      </React.Fragment>
+    
   );
 }
 
-export default About;
+export default ForDealer;
